@@ -23,13 +23,16 @@ client.on("connect", (err, res) =>{
 
 app.post('/student/register', router.registerStudent);
 app.post("/staff/register", router.registerStaff)
-app.post('/student',router.loginHandler);
+app.post('/student', router.loginHandler);
 app.post('/staff', router.staffLoginHandle);
 app.post('/result/upload', router.uploadResult);
 app.put('/result/update', router.updateResult);
 app.get('/result', router.resultCheck);
 app.get('/result/:regNo', router.getStudentResults);
 app.get('/result/:regNo/:code', router.getIndividualResult);
+app.post('/question', router.loadQuestion);
+app.get('/question', router.getQuestion);
+app.get('/courses', router.getCourse);
 
 
 app.listen(PORT, () => console.log(`Server started at ${PORT}`));
