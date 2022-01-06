@@ -11,7 +11,7 @@ const uploadQuestions = (req, res, client) => {
   let query ='insert into exams (course_title, course_code, question, ans, keyword) values( $1, $2, $3, $4, $5)';
   client.query(query, [course, code, quest, ans, keys], (err, result) => {
     if(err) throw err;
-    console.log(result.rowCount);
+    console.log(result.rowCount); 
     res.status(200).send('Uploaded Successfully.');
   })
 }
@@ -25,9 +25,18 @@ const getCourseCodes = (req, res, client) => {
   })
 }
 
+const getExamQuestions = (req, res, client) => {
+  const {code} = req.params;
+  let query = 'select * from exams where Lower(course_code) = $1';
+  client.query(query,[code.toLowerCase()], (err, result) => {
+    if(err) throw err;
+    res.status(200).send(result.rows);
+  })
+}
 
 module.exports= {
   uploadQuestions,
   getQuestions,
   getCourseCodes,
+  getExamQuestions,
 }

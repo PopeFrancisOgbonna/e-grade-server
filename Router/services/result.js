@@ -4,23 +4,43 @@ const upload = (req, res, client) => {
   client.query(query, [name, course, code, score, regNo], (err, result) => {
     if(err) throw err;
     console.log(result);
-    res.status(200).send('Record Saved!');
+    res.status(200).send('Reslt submited!');
   })
 
 }
-const studentResult = (req, res, client) => {
-  const {regNo } = req.params;
-  let query = 'select * from result where reg_no = $1';
-  client.query(query, [regNo], (err, result) => {
-    if(err) throw err;
+
+const courseResult = (req, res, client) => {
+  let {code} = req.params;
+  let query = 'select * from result where Lower(course_code) = $1';
+  client.query(query, [code.toLowerCase()], (err, result) => {
+    if(err){
+      res.status(400).send("Error: Invalid Parameters Supplied.");
+      console.log(err);
+      return;
+    }
     console.log(result.rows);
     res.status(200).send(result.rows);
   })
 }
+
 const specificResult = (req, res, client) => {
-  const {regNo, code} = req.params;
-  let query = 'select * from result where reg_no = $2 and course_code = $2';
-  client.query(query, [regNo, code], (err, result) => {
+  let {code} = req.params;
+  const {regno} = req.query;
+  let query = 'select * from result where Lower(course_code) = $1 and Lower(reg_no) =$2';
+  client.query(query, [code.toLowerCase(),regno.toLowerCase()], (err, result) => {
+    if(err){
+      res.status(400).send("Error: Invalid Parameters Supplied.");
+      console.log(err);
+      return;
+    }
+    console.log(result.rows);
+    res.status(200).send(result.rows);
+  })
+}
+const studentResult = (req, res, client) => {
+  const {regno} = req.query;
+  let query = 'select * from result where Lower(reg_no) =$1';
+  client.query(query, [regno.toLowerCase()], (err, result) => {
     if(err) throw err;
     console.log(result.rows);
     res.status(200).send(result.rows);
@@ -39,6 +59,7 @@ const allResult = (req, res, client) => {
   let query = 'select * from result';
   client.query(query, (err, result) => {
     if(err) throw err;
+    console.log('All result')
     console.log(result.rows)
     res.status(200).send(result.rows);
   })
@@ -49,4 +70,5 @@ module.exports = {
   specificResult,
   updateSingleResult,
   allResult,
+  courseResult,
 }

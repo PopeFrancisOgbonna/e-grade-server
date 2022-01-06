@@ -5,8 +5,9 @@ const questions = require('./services/questionsHandler');
 const register = require('./services/registrationhandle');
 const login = require('./services/loginHandle');
 const result = require('./services/result');
+const courses = require("./services/courses");
 
-router.get('/', (req, res) =>{
+const getRoute = router.get('/', (req, res) =>{
   res.send('app working fine...');
 });
 
@@ -24,26 +25,35 @@ const uploadResult = (req, res) => {result.upload(req, res, client)};
 const getStudentResults = (req, res) => {result.studentResult(req, res, client)};
 const getIndividualResult = (req, res) => {result.specificResult(req, res, client)};
 const updateResult = (req, res) => {result.updateSingleResult(req, res, client)};
-const resultCheck = (req, res) => {result.allResult(req, res, client)};
+const results = (req, res) => {result.allResult(req, res, client)};
+const courseResults = (req, res) => {result.courseResult(req, res, client)};
 
 //Question uploading and handling services
 const getQuestion = (req, res) => {questions.getQuestions(req, res, client)};
 const loadQuestion = (req, res) => {questions.uploadQuestions(req, res, client)};
 const getCourse = (req, res) => {questions.getCourseCodes(req, res, client)};
-
+const getExamQuestions = (req, res) => {questions.getExamQuestions(req,res,client)};
+//courses
+const registerCourse = (req,res) => {courses.registerCourse(req,res,client)};
+const confirmRegistration = (req,res) => {courses.confirmRegistration(req,res,client)};
 
 module.exports = {
+  getRoute,
   router,
   registerStaff,
   registerStudent,
   staffLoginHandle,
   loginHandler,
   uploadResult,
-  resultCheck,
+  results,
   getIndividualResult,
   getStudentResults,
   updateResult,
   getQuestion,
   loadQuestion,
+  getExamQuestions,
   getCourse,
+  confirmRegistration,
+  registerCourse,
+  courseResults,
 };
