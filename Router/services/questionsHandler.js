@@ -30,6 +30,7 @@ const getExamQuestions = (req, res, client) => {
   let query = 'select * from exams where Lower(course_code) = $1';
   client.query(query,[code.toLowerCase()], (err, result) => {
     if(err) throw err;
+    console.log(result.rows);
     res.status(200).send(result.rows);
   })
 }

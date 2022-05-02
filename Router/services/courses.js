@@ -28,13 +28,17 @@ const registerCourse = (req,res, client) => {
 }
 
 const confirmRegistration = (req, res, client) => {
+
+  console.log(req.params);
+  console.log(req.query);
   const {code} = req.params;
   const {regno} = req.query;
   let checkQuery = `select * from courses where Lower(code) ='${code.toLowerCase()}' and Lower(reg_no) ='${regno}'`;
   // select * from courses where Lower(code)='iph 101' and reg_no='esut/2014/155200'
   client.query(checkQuery,(err,result) =>{
     if(err) throw err;
-    res.send(result.rows)
+    console.log(result.rows);
+    res.send(result.rows);
   })
 }
 
