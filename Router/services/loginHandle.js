@@ -3,6 +3,7 @@ const student = (req, res, client) => {
   let query = 'select full_name, reg_no from students where reg_no = $1 and password = $2';
   client.query(query,[userName, password], (err, result) =>{
     if(err) throw err;
+    console.log(query);
     console.log(result.rows);
     res.send(result.rows);
   })
