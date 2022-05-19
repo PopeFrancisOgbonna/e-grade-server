@@ -9,5 +9,5 @@ const client = new Client({
         rejectUnauthorized: false
     }:false
 });
-
+console.log(connectionString);
 module.exports = client;
