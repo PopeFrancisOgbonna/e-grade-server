@@ -4,13 +4,19 @@ const connectionStrings = `postgresql://${process.env.DB_USER}:${process.env.DB_
 
 const client = new Client({
 
-    connectionString: isProduction? process.env.DATABASE_URL : connectionStrings,
+    connectionString: process.env.DATABASE_URL ,
     ssl: isProduction? {
         rejectUnauthorized: false
     }:false
 });
+const localClient = new Client({
+    connectionString: connectionStrings
+});
+const mainClient = isProduction? client : localClient;
+
 console.log(client.connectionString);
 console.log(isProduction);
 console.log(process.env.DATABASE_URL);
 console.log(connectionStrings);
-module.exports = client;
+console.log(mainClient.database);
+module.exports = mainClient;
