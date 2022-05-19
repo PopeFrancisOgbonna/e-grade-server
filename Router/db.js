@@ -10,4 +10,6 @@ const client = new Client({
     }:false
 });
 console.log(connectionString);
+console.log(isProduction);
+console.log(process.env.DATABASE_URL);
 module.exports = client;
