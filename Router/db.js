@@ -19,4 +19,4 @@ console.log(isProduction);
 console.log(process.env.DATABASE_URL);
 console.log(connectionStrings);
 console.log(mainClient.database);
-module.exports = mainClient;
+module.exports = client;
