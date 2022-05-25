@@ -1,7 +1,8 @@
 const student = (req, res, client) => {
   const {userName, password} = req.body;
-  let query = `select full_name, reg_no from students where reg_no = ${userName} and password = ${password}}`;
+  let query = `select full_name, reg_no from students where reg_no = '${userName}' and password = '${password}'`;
   client.query(query, (err, result) =>{
+    console.log(query);
     if(err) throw err;
     console.log(query);
     console.log(result.rows);
