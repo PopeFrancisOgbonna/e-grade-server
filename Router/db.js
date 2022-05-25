@@ -9,5 +9,6 @@ const client = new Client({
         rejectUnauthorized: false
     }:false
 });
-
+console.log(isProduction);
+console.log(process.env.DATABASE_URL);
 module.exports = client;
