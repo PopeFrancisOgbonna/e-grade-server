@@ -48,8 +48,8 @@ const studentResult = (req, res, client) => {
 }
 const updateSingleResult = (req, res, client) => {
   const {regNo, code, score} = req.body;
-  let query = 'update result set score = $1 where reg_no = $2 and course_code = $3';
-  client.query(query, [score, regNo, code], (err, result) => {
+  let query = 'update result set score = $1 where lower(reg_no) = $2 and lower(course_code) = $3';
+  client.query(query, [score, regNo.toLowerCase(), code.toLowerCase()], (err, result) => {
     if(err) throw err;
     console.log(result);
     res.status(200).send(result);

@@ -2,8 +2,8 @@ const registerCourse = (req,res, client) => {
   const { code,level,name,regno,semester,title} = req.body;
  
   let query = 'insert into courses (title, code,semester, level, students,reg_no) values($1,$2,$3,$4,$5,$6)';
-  let checkQuery = "select * from courses where reg_no =$1 and code =$2";
-  client.query(checkQuery,[regno,code],(err,result) =>{
+  let checkQuery = "select * from courses where lower(reg_no) =$1 and lower(code) =$2";
+  client.query(checkQuery,[regno.toLowerCase(),code.toLowerCase()],(err,result) =>{
     if(err) {
       res.status(400).send("Error: Unexpected error while processing request.");
       console.log(err);
