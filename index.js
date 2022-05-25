@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 3020;
 const app = express()
 
 // app.use(router);
-app.use(cors({origin:"*"}));
+app.use(cors({origin:"https://exam-portals.onrender.com"}));
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
